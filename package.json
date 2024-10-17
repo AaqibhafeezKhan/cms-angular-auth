@@ -1,0 +1,18 @@
+{
+  "name": "cms-angular-auth",
+  "version": "1.0.0",
+  "description": "Angular microfrontend for role-based access control",
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/core": "^11.0.5",
+    "@angular/platform-browser": "^11.0.5",
+    "@angular/router": "^11.0.5"
+  },
+  "devDependencies": {
+    "@angular/cli": "^11.0.5",
+    "webpack-module-federation-plugin": "^0.0.3"
+  }
+}
