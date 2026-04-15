@@ -1,47 +1,51 @@
-<div class="animate-in" style="display: flex; align-items: center; justify-content: center; min-height: 80vh;">
-  <div class="card" style="width: 100%; max-width: 450px; padding: 3rem;">
+<div class="animate-in" style="display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 2rem;">
+  <div class="module-card" style="width: 100%; max-width: 480px; padding: 3.5rem; background: white; border: 1px solid var(--border); border-radius: var(--radius, 16px); box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));">
     <div style="text-align: center; margin-bottom: 2.5rem;">
-      <div style="width: 64px; height: 64px; background: var(--primary); border-radius: 1rem; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px var(--primary);">
+      <div style="width: 72px; height: 72px; background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); border-radius: 1.25rem; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2.25rem; box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);">
         🔐
       </div>
-      <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Secure Access</h2>
-      <p style="color: var(--text-muted);">Enter your credentials to manage MFE roles</p>
+      <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary, #1e1b4b); letter-spacing: -0.03em; margin-bottom: 0.5rem;">Secure Access</h2>
+      <p style="color: var(--text-muted, #64748b); font-weight: 500;">Authorized personnel only · SSO Protected</p>
     </div>
 
     <form style="display: flex; flex-direction: column; gap: 1.5rem;">
-      <div>
-        <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Email Address</label>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Email Address</label>
         <input 
           type="email" 
           placeholder="admin@cms-ultra.com"
-          style="width: 100%; padding: 0.875rem; background: var(--bg-darker); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-main); font-size: 1rem;"
+          style="width: 100%; padding: 1rem; background: #f8fafc; border: 1px solid var(--border, #e2e8f0); border-radius: 12px; color: var(--text-main, #0f172a); font-size: 1rem; font-weight: 500; transition: all 0.2s; outline: none;"
+          onfocus="this.style.borderColor='var(--primary-accent, #4f46e5)'; this.style.boxShadow='0 0 0 4px rgba(79, 70, 229, 0.1)'; this.style.background='white';"
+          onblur="this.style.borderColor='var(--border, #e2e8f0)'; this.style.boxShadow='none'; this.style.background='#f8fafc';"
         >
       </div>
 
-      <div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-          <label style="font-size: 0.875rem; font-weight: 500;">Password</label>
-          <a href="#" style="color: var(--accent); font-size: 0.75rem; text-decoration: none;">Forgot?</a>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Password</label>
+          <a href="#" style="color: var(--primary-accent, #4f46e5); font-size: 0.8rem; text-decoration: none; font-weight: 600;">Forgot Password?</a>
         </div>
         <input 
           type="password" 
-          placeholder="••••••••"
-          style="width: 100%; padding: 0.875rem; background: var(--bg-darker); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-main); font-size: 1rem;"
+          placeholder="••••••••••••"
+          style="width: 100%; padding: 1rem; background: #f8fafc; border: 1px solid var(--border, #e2e8f0); border-radius: 12px; color: var(--text-main, #0f172a); font-size: 1rem; font-weight: 500; transition: all 0.2s; outline: none;"
+          onfocus="this.style.borderColor='var(--primary-accent, #4f46e5)'; this.style.boxShadow='0 0 0 4px rgba(79, 70, 229, 0.1)'; this.style.background='white';"
+          onblur="this.style.borderColor='var(--border, #e2e8f0)'; this.style.boxShadow='none'; this.style.background='#f8fafc';"
         >
       </div>
 
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <input type="checkbox" id="remember" style="accent-color: var(--primary);">
-        <label for="remember" style="font-size: 0.875rem; color: var(--text-muted);">Remember this device</label>
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-top: 0.25rem;">
+        <input type="checkbox" id="remember" style="width: 18px; height: 18px; accent-color: var(--primary-accent, #4f46e5); cursor: pointer;">
+        <label for="remember" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500; cursor: pointer;">Keep me signed in for 30 days</label>
       </div>
 
-      <button type="submit" class="glass-btn active" style="padding: 1rem; font-size: 1rem; justify-content: center; margin-top: 1rem;">
-        Sign In to Dashboard
+      <button type="submit" style="padding: 1rem; font-size: 1rem; font-weight: 700; color: white; background: var(--primary-gradient, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)); border: none; border-radius: 12px; cursor: pointer; transform: translateY(0); transition: all 0.2s; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); margin-top: 0.5rem;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(79, 70, 229, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(79, 70, 229, 0.2)';">
+        Sign In to Platform
       </button>
     </form>
 
-    <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: var(--text-muted);">
-      Don't have an account? <a href="#" style="color: var(--accent); text-decoration: none;">Request access</a>
+    <div style="margin-top: 2.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">
+      New to CMS Ultra? <a href="#" style="color: var(--primary-accent, #4f46e5); text-decoration: none; font-weight: 700;">Request an Account</a>
     </div>
   </div>
 </div>
