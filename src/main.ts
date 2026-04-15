@@ -1,21 +1,32 @@
-import { enableProdMode, NgZone } from '@angular/core';
+import './polyfills';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Router, NavigationStart } from '@angular/router';
-import { singleSpaAngular, getSingleSpaExtraProviders } from 'single-spa-angular';
 import { AppModule } from './app/app.module';
 
-if (false) {
-  enableProdMode();
+let platformRef: any = null;
+
+export async function bootstrap(): Promise<void> {
+  // nothing to do pre-bootstrap
 }
 
-const lifecycles = singleSpaAngular({
-  bootstrapFunction: singleSpaProps => {
-    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(AppModule);
-  },
-  template: '<app-root />',
-  Router,
-  NavigationStart,
-  NgZone,
-});
+export async function mount(props: any): Promise<void> {
+  const container: HTMLElement =
+    props.domElement ||
+    document.getElementById('single-spa-container') ||
+    document.body;
 
-export const { bootstrap, mount, unmount } = lifecycles;
+  const mountPoint = document.createElement('div');
+  mountPoint.id = 'angular-auth-root';
+  container.appendChild(mountPoint);
+
+  platformRef = await platformBrowserDynamic().bootstrapModule(AppModule);
+}
+
+export async function unmount(): Promise<void> {
+  if (platformRef) {
+    platformRef.destroy();
+    platformRef = null;
+  }
+
+  const el = document.getElementById('angular-auth-root');
+  if (el) el.remove();
+}
