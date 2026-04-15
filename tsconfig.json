@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ES2017", "dom"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
