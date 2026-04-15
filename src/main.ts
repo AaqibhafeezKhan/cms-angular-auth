@@ -14,8 +14,7 @@ export async function mount(props: any): Promise<void> {
     document.getElementById('single-spa-container') ||
     document.body;
 
-  const mountPoint = document.createElement('div');
-  mountPoint.id = 'angular-auth-root';
+  const mountPoint = document.createElement('app-root');
   container.appendChild(mountPoint);
 
   platformRef = await platformBrowserDynamic().bootstrapModule(AppModule);
@@ -27,6 +26,6 @@ export async function unmount(): Promise<void> {
     platformRef = null;
   }
 
-  const el = document.getElementById('angular-auth-root');
+  const el = document.querySelector('app-root');
   if (el) el.remove();
 }
