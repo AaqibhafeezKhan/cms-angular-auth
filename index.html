@@ -3,20 +3,18 @@
         "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.3/lib/system/single-spa.min.js"
       }
     }</script><script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script><script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script><style>:root {
-      --primary: #6366f1; --secondary: #9333ea; --accent: #22d3ee;
-      --bg-dark: #0f172a; --bg-darker: #020617; --card-bg: rgba(30,41,59,0.7);
-      --text-main: #f8fafc; --text-muted: #94a3b8;
-      --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1);
+      --primary: #4f46e5; --secondary: #7c3aed; --accent: #4f46e5;
+      --bg-dark: #f8fafc; --bg-darker: #f1f5f9; --card-bg: #ffffff;
+      --text-main: #0f172a; --text-muted: #64748b;
+      --glass: rgba(255,255,255,1); --border: #e2e8f0;
+      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: var(--bg-darker); color: var(--text-main); min-height: 100vh; padding: 2rem; }
     #app-root { max-width: 960px; margin: 0 auto; }
-    .standalone-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.35); color: #fca5a5; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.05em; }
-    .card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; }
-    .glass-btn { background: var(--glass); border: 1px solid var(--border); color: var(--text-main); padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; transition: all 0.2s; }
-    .glass-btn.active { background: var(--primary); border-color: var(--primary); }
-    .glass-btn:hover { transform: translateY(-2px); }
-    .vibrant-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+    .standalone-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(79,70,229,0.1); border: 1px solid rgba(79,70,229,0.2); color: #4f46e5; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-bottom: 2rem; letter-spacing: 0.05em; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+    .vibrant-text { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .animate-in { animation: fadeIn 0.5s ease forwards; }</style></head><body><div id="app-root"><div class="standalone-badge">🔴 Standalone Preview · Angular Microfrontend</div><div id="single-spa-container"><app-root></app-root></div></div><script>System.import('./main.js').then(({ bootstrap, mount }) => {
       const props = { name: 'cms-angular-auth', domElement: document.getElementById('single-spa-container') };
