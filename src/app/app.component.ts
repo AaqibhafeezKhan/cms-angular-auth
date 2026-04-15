@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface Role {
   id: string;
@@ -17,59 +17,52 @@ interface Role {
         <p style="color: var(--text-muted); margin-top: 0.25rem; font-size: 0.9rem;">Enterprise-grade security and role management</p>
       </header>
 
-            ⚠ {{ loginError }}
+      <div *ngIf="!currentUser" style="max-width: 400px; margin: 0 auto;">
+        <div class="card" style="padding: 2.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: white;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">Sign In</h3>
+          
+          <div *ngIf="loginError" style="background: #fee2e2; border: 1px solid #ef4444; border-radius: 4px; padding: 0.75rem; margin-bottom: 1.5rem; color: #b91c1c; font-size: 0.8rem;">
+            {{ loginError }}
           </div>
 
           <form (ngSubmit)="onLogin()" style="display: flex; flex-direction: column; gap: 1.25rem;">
             <div>
-              <label style="display: block; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 600;">Email Address</label>
-              <input type="email" [(ngModel)]="email" name="email" placeholder="admin@cms-ultra.com" required class="form-input">
+              <label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Work Email</label>
+              <input type="email" [(ngModel)]="email" name="email" placeholder="admin@pro-cms.com" required class="form-input">
             </div>
             <div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-                <label style="font-size: 0.875rem; font-weight: 600;">Password</label>
-                <a href="#" style="color: var(--accent); font-size: 0.75rem; text-decoration: none;">Forgot password?</a>
-              </div>
+              <label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Password</label>
               <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required class="form-input">
             </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <input type="checkbox" id="remember" [(ngModel)]="rememberMe" name="rememberMe" style="accent-color: var(--primary); width: 16px; height: 16px;">
-              <label for="remember" style="font-size: 0.875rem; color: var(--text-muted);">Keep me signed in</label>
-            </div>
-            <button type="submit" class="glass-btn active" style="padding: 0.875rem; font-size: 1rem; justify-content: center; margin-top: 0.5rem; width: 100%;">
-              {{ loading ? 'Signing in...' : 'Sign In to Dashboard →' }}
+            <button type="submit" class="glass-btn active" style="margin-top: 1rem; width: 100%; border: none; background: var(--primary-accent); color: white; padding: 0.75rem; border-radius: var(--radius); cursor: pointer; font-weight: 600;">
+              {{ loading ? 'Verifying...' : 'Continue' }}
             </button>
           </form>
-
-          <div *ngIf="loggedIn" style="margin-top: 1.5rem; padding: 1rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 0.5rem; color: #10b981; text-align: center; font-size: 0.875rem; font-weight: 600;">
-            ✓ Signed in successfully as {{ email }}
-          </div>
-        </div>
-
-        <div style="flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 1rem;">
-          <div class="card" *ngFor="let info of infoCards" style="display: flex; align-items: center; gap: 1rem;">
-            <div style="font-size: 1.5rem; flex-shrink: 0;">{{ info.icon }}</div>
-            <div>
-              <p style="font-weight: 600; font-size: 0.9rem;">{{ info.title }}</p>
-              <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.15rem;">{{ info.desc }}</p>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div *ngIf="view === 'roles'">
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem;">
-          <div class="card" *ngFor="let role of roles" style="display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-radius: 0 1rem 0 80px; background: rgba(99,102,241,0.08);"></div>
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <span style="font-size: 1.5rem;">{{ role.badge }}</span>
-              <div>
-                <p style="font-weight: 700; font-size: 0.95rem;">{{ role.name }}</p>
-                <p style="font-size: 0.7rem; color: var(--text-muted);">{{ role.count }} members</p>
-              </div>
+      <div *ngIf="currentUser" style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="card" style="padding: 2rem; border: 1px solid var(--border); border-radius: var(--radius); background: #f8fafc; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+              {{ currentUser.name[0] }}
             </div>
-            <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.5;">{{ role.description }}</p>
-            <button class="glass-btn" style="margin-top: auto; font-size: 0.8rem; padding: 0.4rem 0.75rem;">Manage →</button>
+            <div>
+              <p style="font-weight: 700; font-size: 1rem;">{{ currentUser.name }}</p>
+              <p style="color: var(--text-muted); font-size: 0.8rem;">Active Session · {{ currentUser.role }}</p>
+            </div>
+          </div>
+          <button (click)="onLogout()" style="background: white; border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; font-weight: 600;">Sign Out</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div class="card" *ngFor="let role of roles" style="padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: white;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <span style="font-size: 1.25rem;">{{ role.badge }}</span>
+              <p style="font-weight: 700; font-size: 0.9rem;">{{ role.name }}</p>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.6; margin-bottom: 1.5rem;">{{ role.description }}</p>
+            <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">{{ role.count }} ACTIVE USERS</div>
           </div>
         </div>
       </div>
@@ -78,52 +71,61 @@ interface Role {
   styles: [`
     .form-input {
       width: 100%;
-      padding: 0.75rem 1rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 0.5rem;
-      color: #f8fafc;
-      font-size: 0.95rem;
-      font-family: inherit;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
       outline: none;
       transition: border-color 0.2s;
-      box-sizing: border-box;
     }
-    .form-input:focus { border-color: #6366f1; }
+    .form-input:focus { border-color: var(--primary-accent); }
+    .card:hover { border-color: var(--primary-accent); }
   `]
 })
-export class AppComponent {
-  view: 'login' | 'roles' = 'login';
+export class AppComponent implements OnInit {
+  currentUser: any = null;
   email = '';
   password = '';
-  rememberMe = false;
   loading = false;
-  loggedIn = false;
   loginError = '';
 
   roles: Role[] = [
-    { id: 'admin', name: 'Administrator', description: 'Full access to all CMS modules including auth, editorial, media, and collaboration settings.', badge: '👑', count: 2 },
-    { id: 'editor', name: 'Editor', description: 'Can create, edit and publish articles in the Editorial module. Read access to Media Library.', badge: '✏️', count: 8 },
-    { id: 'contributor', name: 'Contributor', description: 'Can draft articles and upload media assets. Requires Editor approval before publishing.', badge: '📝', count: 15 },
-    { id: 'viewer', name: 'Viewer', description: 'Read-only access across all modules. Cannot create or modify any content.', badge: '👁️', count: 24 },
+    { id: 'admin', name: 'Administrator', description: 'Full access to all platform systems including security settings and user orchestration.', badge: '👑', count: 2 },
+    { id: 'editor', name: 'Content Editor', description: 'Manage full editorial lifecycles and publish content to production targets.', badge: '✏️', count: 8 },
+    { id: 'contributor', name: 'Contributor', description: 'Submit drafts and manage assigned media assets for editorial review.', badge: '📝', count: 15 },
   ];
 
-  infoCards = [
-    { icon: '🛡️', title: 'Enterprise Security', desc: 'Role-based access control with fine-grained permissions per module' },
-    { icon: '🔑', title: 'SSO Ready', desc: 'Supports OAuth 2.0 and SAML for seamless enterprise integration' },
-    { icon: '📊', title: 'Audit Logs', desc: 'Every action tracked with full audit trail for compliance' },
-  ];
+  ngOnInit() {
+    const session = localStorage.getItem('cms_session');
+    if (session) {
+      this.currentUser = JSON.parse(session);
+    }
+  }
 
   onLogin(): void {
     this.loginError = '';
     if (!this.email || !this.password) {
-      this.loginError = 'Please enter your email and password.';
+      this.loginError = 'Email and password are required.';
       return;
     }
+
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
-      this.loggedIn = true;
-    }, 1200);
+      this.currentUser = {
+        id: 'user_1',
+        name: 'Admin User',
+        email: this.email,
+        role: 'Administrator'
+      };
+      localStorage.setItem('cms_session', JSON.stringify(this.currentUser));
+      window.dispatchEvent(new CustomEvent('cms:auth_change', { detail: this.currentUser }));
+    }, 800);
+  }
+
+  onLogout(): void {
+    this.currentUser = null;
+    localStorage.removeItem('cms_session');
+    window.dispatchEvent(new CustomEvent('cms:auth_change', { detail: null }));
   }
 }
