@@ -12,26 +12,11 @@ interface Role {
   selector: 'app-root',
   template: `
     <div class="animate-in">
-      <header style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <h2 class="vibrant-text" style="font-size: 2rem;">Auth &amp; Access Control</h2>
-          <p style="color: var(--text-muted); margin-top: 0.25rem;">Identity management and role-based permissions · Angular 11</p>
-        </div>
-        <div style="display: flex; gap: 0.75rem;">
-          <button class="glass-btn" [class.active]="view === 'login'" (click)="view = 'login'">🔐 Sign In</button>
-          <button class="glass-btn" [class.active]="view === 'roles'" (click)="view = 'roles'">👥 Roles</button>
-        </div>
+      <header style="margin-bottom: 2.5rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--primary);">Identity & Access</h2>
+        <p style="color: var(--text-muted); margin-top: 0.25rem; font-size: 0.9rem;">Enterprise-grade security and role management</p>
       </header>
 
-      <div *ngIf="view === 'login'" style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;">
-        <div class="card" style="width: 100%; max-width: 440px; padding: 2.5rem;">
-          <div style="text-align: center; margin-bottom: 2rem;">
-            <div style="width: 60px; height: 60px; background: var(--primary); border-radius: 1rem; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; box-shadow: 0 0 24px rgba(99,102,241,0.4);">🔐</div>
-            <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem;">Secure Access</h3>
-            <p style="color: var(--text-muted); font-size: 0.875rem;">Sign in to the CMS platform</p>
-          </div>
-
-          <div *ngIf="loginError" style="background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.5rem; color: #f87171; font-size: 0.875rem;">
             ⚠ {{ loginError }}
           </div>
 
