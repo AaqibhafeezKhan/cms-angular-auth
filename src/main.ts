@@ -14,8 +14,12 @@ export async function mount(props: any): Promise<void> {
     document.getElementById('single-spa-container') ||
     document.body;
 
-  const mountPoint = document.createElement('app-root');
-  container.appendChild(mountPoint);
+  // Check if app-root already exists (standalone mode)
+  let mountPoint = container.querySelector('app-root');
+  if (!mountPoint) {
+    mountPoint = document.createElement('app-root');
+    container.appendChild(mountPoint);
+  }
 
   platformRef = await platformBrowserDynamic().bootstrapModule(AppModule);
 }
