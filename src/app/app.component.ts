@@ -10,7 +10,74 @@ interface Role {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div class="animate-in">
+      <header style="margin-bottom: 3.5rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 2rem;">
+        <div>
+          <h2 style="font-size: 2.5rem; font-weight: 900; color: var(--primary); letter-spacing: -0.04em; margin-bottom: 0.5rem;">Identity & Access</h2>
+          <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">Enterprise-grade security and role management</p>
+        </div>
+        <div style="padding-bottom: 0.5rem;">
+          <span class="module-tag" style="background: #fff1f2; color: #e11d48; border-color: #fecdd3;">Angular 11</span>
+        </div>
+      </header>
+
+      <div *ngIf="!currentUser" style="max-width: 480px; margin: 0 auto;">
+        <div class="module-card" style="padding: 3rem; background: white; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <div style="width: 72px; height: 72px; background: var(--primary-gradient); border-radius: 1.25rem; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2.25rem; box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);">🔐</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">Secure Access</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Authorized personnel only</p>
+          </div>
+          
+          <div *ngIf="loginError" style="background: #fee2e2; border: 1px solid #fecdd3; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; color: #e11d48; font-size: 0.9rem; font-weight: 500;">{{ loginError }}</div>
+
+          <form (ngSubmit)="onLogin()" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Email Address</label>
+              <input type="email" [(ngModel)]="email" name="email" placeholder="admin@cms-ultra.com" required class="form-input">
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Password</label>
+                <a href="#" style="color: var(--primary-accent); font-size: 0.75rem; text-decoration: none; font-weight: 600;">Forgot?</a>
+              </div>
+              <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required class="form-input">
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <input type="checkbox" id="remember" style="width: 18px; height: 18px; accent-color: var(--primary-accent); cursor: pointer;">
+              <label for="remember" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500; cursor: pointer;">Keep me signed in for 30 days</label>
+            </div>
+            <button type="submit" style="padding: 1rem; font-size: 1rem; font-weight: 700; color: white; background: var(--primary-gradient); border: none; border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);" [disabled]="loading" [style.opacity]="loading ? '0.7' : '1'">{{ loading ? 'Verifying...' : 'Sign In to Platform' }}</button>
+          </form>
+          <div style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">New to CMS Ultra? <a href="#" style="color: var(--primary-accent); text-decoration: none; font-weight: 700;">Request an Account</a></div>
+        </div>
+      </div>
+
+      <div *ngIf="currentUser" style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="module-card" style="padding: 2rem; background: white; border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 56px; height: 56px; background: var(--primary-gradient); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);">{{ currentUser.name[0] }}</div>
+            <div>
+              <p style="font-weight: 800; font-size: 1.1rem; color: var(--primary);">{{ currentUser.name }}</p>
+              <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">Active Session · {{ currentUser.role }}</p>
+            </div>
+          </div>
+          <button (click)="onLogout()" style="background: white; border: 1px solid var(--border); color: var(--text-main); padding: 0.6rem 1.25rem; border-radius: var(--radius); cursor: pointer; font-size: 0.85rem; font-weight: 700; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary-accent)'; this.style.color='var(--primary-accent)';" onmouseout="this.style.borderColor='var(--border)'; this.style.color='var(--text-main)';">Sign Out</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div class="module-card" *ngFor="let role of roles" style="padding: 1.75rem; background: white; border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--primary-accent)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)'; this.style.boxShadow='var(--shadow-sm)';">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <span style="font-size: 1.5rem;">{{ role.badge }}</span>
+              <p style="font-weight: 800; font-size: 1rem; color: var(--primary);">{{ role.name }}</p>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">{{ role.description }}</p>
+            <div style="font-size: 0.7rem; font-weight: 700; color: var(--primary-accent); text-transform: uppercase; letter-spacing: 0.05em;">{{ role.count }} ACTIVE USERS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
   styles: [`
     .form-input {
       width: 100%;
